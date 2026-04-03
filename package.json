@@ -1,0 +1,25 @@
+{
+  "name": "bergwossa-backend",
+  "version": "1.0.0",
+  "description": "IoT Backend für Bierbrau-Temperaturüberwachung",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "db:setup": "node database/setup.js"
+  },
+  "keywords": ["iot", "mqtt", "brewing", "socketio"],
+  "author": "Darwin Heinrich",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3",
+    "mqtt": "^5.3.4",
+    "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
