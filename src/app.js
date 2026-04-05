@@ -150,8 +150,11 @@ async function startServer() {
     server.listen(PORT, () => {
       console.log('✓ Server running\n');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log(`🌐 REST API:    http://localhost:${PORT}/api`);
-      console.log(`🔌 Socket.IO:   http://localhost:${PORT}`);
+      const host = process.env.RAILWAY_PUBLIC_DOMAIN
+        ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+        : `http://localhost:${PORT}`;
+      console.log(`🌐 REST API:    ${host}/api`);
+      console.log(`🔌 Socket.IO:   ${host}`);
       console.log(`📡 MQTT:        ${process.env.MQTT_BROKER_URL}`);
       console.log(`📊 Database:    ${process.env.DB_NAME}@${process.env.DB_HOST}`);
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
