@@ -116,6 +116,18 @@ class BrewController {
 
       const result = await this.brewService.advanceToNextStep(brewId, userId);
 
+      // Publish target temperature to ESP32 if new step requires it
+      const temprange = result.new_step.temprange;
+      if (temprange) {
+        const [low, high] = temprange.split('-').map(Number);
+        const midpoint = (low + high) / 2;
+        const mqttHandler = req.app.get('mqttHandler');
+        console.log(`[MQTT] mqttHandler present: ${!!mqttHandler}, temprange: ${temprange}, midpoint: ${midpoint}`);
+        mqttHandler.publishCommand(brewId, { action: 'set_temperature', value: midpoint });
+      } else {
+        console.log(`[MQTT] New step has no temprange, skipping publish`);
+      }
+
       res.json({
         success: true,
         data: result
